@@ -1,0 +1,39 @@
+.navbar {
+  position: relative;
+}
+
+.back-icon {
+  width: 28px;
+  height: 100%;
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+  display: flex;
+}
+
+.back-icon {
+  left: 16px;
+}
+
+.elementToFadeInAndOut {
+  opacity: 1;
+  animation: fade 1s;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.nav-title, .nav-icon {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  font-size: 0;
+}

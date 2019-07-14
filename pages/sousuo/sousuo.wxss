@@ -1,0 +1,16 @@
+.navbar{
+  position: relative
+}
+.back-icon{
+  width: 28px;
+  height: 100%;
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+  display: flex;
+}
+.back-icon{
+  left: 16px;
+}
+
+

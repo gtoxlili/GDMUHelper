@@ -1,0 +1,135 @@
+<view style='background: url("http://g6o.club/tc/1.png");background-position:center;background-color:#262423;' class="bottomxs">
+  <view class='nav' style='height: {{status + navHeight}}px;'>
+    <view class='status' style='height: {{status}}px;'></view>
+    <view class='navbar' style='height:{{navHeight}}px;'>
+      <view class='back-icon' bindtap='user'>
+        <i-icon type="addressbook" size="26" color="#ffffff" style="margin: auto;" />
+      </view>
+      <view class='home-icon' bindtap='sousuo'>
+        <i-icon type="search" size="26" color="#ffffff" style="margin: auto;" />
+      </view>
+      
+      <view class='nav-title'>
+        <text style='color:#ffffff;font-size:18px;'>橘年实验室</text>
+      </view>
+    </view>
+  </view>
+  <i-tabs current="{{ current }}" color="#ffffff" bindchange="handleChange">
+    <i-tab key="tab1" title="文章精选"></i-tab>
+    <i-tab key="tab2" title="生日榜单"></i-tab>
+    <i-tab key="tab3" title="成绩查询"></i-tab>
+  </i-tabs>
+</view>
+<block wx:if="{{current=='tab1'}}">
+  <view style='height: calc(100vh - {{status + navHeight+42+72}}px);position: relative;'>
+    <i-load-more tip="Come soon" loading="{{ false }}" i-class="showboxs" />
+  </view>
+</block>
+<block wx:elif="{{current=='tab2'}}">
+  <scroll-view scroll-y style='height: calc(100vh - {{status + navHeight+42+50}}px);' bindscrolltolower="shenrichud">
+    <i-load-more wx:if="{{loadmoreshow}}" tip="{{loadmore[0]}}" loading="{{ loadmore[1] }}" i-class="showboxs" />
+    <block wx:if="{{!loadmoreshow}}">
+      <i-card i-class="bottomxs,elementToFadeInAndOut" style="margin:16px;" wx:for="{{shenrilist}}" wx:key="{{index}}">
+
+        <view slot="content" style='display: flex;flex-direction: row;justify-content:space-between;align-items: center;height:80px;'>
+
+
+          <view style="display: flex;flex-direction:column;">
+            <view style='padding:4px;display: flex;flex-direction: row;align-items: flex-end;'>
+              <view style='color: #333126;font-size: 16px;'>{{item.name}}
+
+              </view>
+              <view style='font-size: 12px;margin:0px 4px;'>
+                ({{item.banji}}班)
+              </view>
+            </view>
+
+            <view style='padding:4px;color: #bbc4d2;font-size: 12px;'>{{item.shenr}}</view>
+
+
+          </view>
+
+          <view style='color: #28272c;display: flex;flex-direction: row;align-items: baseline;'>距离生日还有
+            <view style='margin:0px 6px;font-size: 24px;font-weight:600;color:{{index<3?"#9e3e42":""}}'>{{item.jujin}}</view>天</view>
+
+
+
+
+        </view>
+      </i-card>
+      <i-load-more tip="{{pagesxed?'已经到底了':'少女祈祷中'}}"  loading="{{ !pagesxed }}" i-class="loadxs" />
+    </block>
+  </scroll-view>
+  <i-tab-bar current="{{ currentbt }}" color="#9e3e42" bindchange="bottomChange" i-class="bottomxs">
+    <i-tab-bar-item key="tab1" icon="businesscard" current-icon="businesscard_fill" title="班级同学"></i-tab-bar-item>
+    <i-tab-bar-item key="tab2" icon="barrage" current-icon="barrage_fill" title="年级同学"></i-tab-bar-item>
+    <i-tab-bar-item key="tab3" icon="group" current-icon="group_fill" title="全校同学"></i-tab-bar-item>
+  </i-tab-bar>
+</block>
+<block wx:elif="{{current=='tab3'}}">
+
+  <scroll-view scroll-y style="height: calc(100vh - {{status + navHeight+42+72}}px);">
+
+    <i-load-more wx:if="{{loadmoreshow}}" tip="{{loadmore[0]}}" loading="{{ loadmore[1] }}" i-class="showboxs" />
+    <i-panel title="成绩" hide-border wx:if="{{!loadmoreshow}}" i-class="elementToFadeInAndOut">
+      <view style="padding: 10px;">
+        <i-cell-group>
+          <i-cell wx:for="{{indexs}}" wx:key="{{index}}" title="{{item['课程名称']}}" value="{{item['总评成绩']?item['总评成绩']:'缺考'}}" label="{{item['考试性质']=='期末考试'?'':item['考试性质']}}" id="{{index}}" only-tap-footer is-link bind:click="handleOpen2"></i-cell>
+        </i-cell-group>
+      </view>
+    </i-panel>
+  </scroll-view>
+
+  <picker mode="multiSelector" bindchange="bindMultiPickerChange" value="{{chaxun}}" range="{{multiArray}}">
+    <i-row>
+      <i-col span="12" i-class="col-class">
+        <i-button type="primary" size="small" i-class="bottomxs">{{multiArray[0][chaxun[0]]}}</i-button>
+      </i-col>
+      <i-col span="12" i-class="col-class">
+        <i-button type="primary" size="small" i-class="bottomxs">{{multiArray[1][chaxun[1]]}}</i-button>
+      </i-col>
+    </i-row>
+  </picker>
+</block>
+
+<i-action-sheet visible="{{ visible2 }}" actions="{{ actions2 }}" show-cancel bind:cancel="handleCancel2">
+  <view slot="header" style="padding: 16px;text-indent:20px;">
+
+    <i-spin fix wx:if="{{ visibshow }}" size="large"></i-spin>
+
+
+    <i-row>
+      <i-col span="12" i-class="col-class">
+        <i-row>
+          <i-col span="24" i-class="col-class">科目：{{actionshow.kemu}}</i-col>
+          <i-col span="24" i-class="col-class">考试性质：{{actionshow.kaosxz}}</i-col>
+          <i-col span="24" i-class="col-class">课程号：{{actionshow.kch}}</i-col>
+        </i-row>
+
+      </i-col>
+      <i-col span="12" i-class="col-class">
+        <view style='height:90px;position: relative;'>
+          <view class='pie' style='animation-delay: -{{actionshow.paimbf}}s'></view>
+        </view>
+
+      </i-col>
+
+    </i-row>
+
+    <i-row>
+      <i-col span="12" i-class="col-class">学分：{{actionshow.xuef}}</i-col>
+      <i-col span="10" offset="2" i-class="col-class">成绩：{{actionshow.cj}}</i-col>
+      <i-col span="12" i-class="col-class">学时：{{actionshow.xues}}</i-col>
+      <i-col span="10" offset="2" i-class="col-class">排名：{{actionshow.paim}}({{100-actionshow.paimbf}}%)</i-col>
+    </i-row>
+
+
+  </view>
+</i-action-sheet>
+
+<i-action-sheet visible="{{ visible1 }}" actions="{{ actions1 }}" show-cancel bind:cancel="handleCancel1" bind:click="handleClickItem1" mask-closable="{{ false }}">
+  <view slot="header" style="padding: 16px;text-align:center;">
+    <view style="color: #444;font-size: 16px">请先登录</view>
+    <text>登录后才可使用该功能</text>
+  </view>
+</i-action-sheet>

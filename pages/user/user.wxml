@@ -1,0 +1,57 @@
+<view style='background: url("http://g6o.club/tc/1.png");background-position:center;background-color:#262423;' class="bottomxs">
+  <view class='nav' style='height: {{status + navHeight}}px'>
+    <view class='status' style='height: {{status}}px;'></view>
+    <view class='navbar' style='height:{{navHeight}}px;'>
+      <view class='back-icon' bindtap='user'>
+        <i-icon type="homepage" size="26" color="#ffffff" style="margin: auto;" />
+      </view>
+
+      <view class='nav-title'>
+        <text style='color:#ffffff;font-size:18px;'>{{islogin?'用户登录':'用户信息'}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class='header' style='position:relative;height: calc(100vh - {{status + navHeight}}px)'>
+
+
+  <i-alert type="{{alertsx[0]}}" style="position : absolute;top: 10px;left:0px;right:0px;z-index:5" wx:if="{{tieshow}}" class="elementToFadeInAndOut" i-class="bottomxs">
+    {{alertsx[1]}}
+    <view slot="desc">{{alertsx[2]}}</view>
+  </i-alert>
+
+
+  <view style="position : absolute;top: 50%;left:0px;right:0px;transform:translateY( -50%);">
+    <block wx:if="{{islogin}}">
+      <i-card extra="" thumb="" i-class="bottomxs">
+        <view slot="content">
+
+          <i-panel title="">
+            <i-input value="{{ value1 }}" id="user" type="number" title="学号" autofocus type="number" placeholder="请输入学号" bind:change="bindKeyInput" />
+            <i-input value="{{ value2 }}" id="passw" title="密码" type="password" placeholder="请输入密码" bind:change="bindKeyInput" />
+          </i-panel>
+
+        </view>
+
+      </i-card>
+      <i-button bind:click="handleClick" type="primary" size="default" i-class="bottomxs">登录</i-button>
+    </block>
+    <block wx:else>
+      <i-card extra="" thumb="1">
+        <view slot="content">
+          <i-cell-group>
+            <i-cell title="姓名" value="{{usmessage['姓名']}}"></i-cell>
+            <i-cell title="学号" value="{{usmessage['学号']}}"></i-cell>
+            <i-cell title="所在年级" value="{{usmessage['所在年级']}}"></i-cell>
+            <i-cell title="学院" value="{{usmessage['学院']}}"></i-cell>
+          </i-cell-group>
+        </view>
+
+      </i-card>
+      <i-button bind:click="dashangClick" type="primary" size="default" i-class="bottomxs">打赏作者</i-button>
+      <i-button bind:click="dropoutClick" type="warning" size="default" i-class="bottomxs">退出登录</i-button>
+    </block>
+
+  </view>
+</view>

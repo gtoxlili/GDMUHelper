@@ -1,0 +1,87 @@
+.navbar {
+  position: relative;
+}
+
+.loadxs{
+  padding-bottom:8px;
+}
+
+.back-icon, .home-icon {
+  width: 28px;
+  height: 100%;
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+  display: flex;
+}
+
+.back-icon {
+  left: 16px;
+}
+
+.home-icon {
+  left: 54px;
+}
+
+.nav-title, .nav-icon {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  font-size: 0;
+}
+
+.pie {
+  position: absolute;
+  top: 50%;
+  transform: translate(50%, -50%);
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: yellowgreen;
+  background-image: linear-gradient(to right, transparent 50%, #655 0);
+}
+
+@keyframes spin{
+  to { transform: rotate(180deg)}
+}
+
+@keyframes bg{
+  50% {background: #655;}
+}
+
+.showboxs{
+  position: absolute;
+  top:5%;
+  left:0px;
+  right:0px;
+}
+
+.pie::before{
+  content: "";
+  display: block;
+  margin-left: 50%;
+  height: 100%;
+  border-radius: 0 100% 100% 0 / 50%;
+  background-color: inherit;
+  transform-origin: left;
+  animation: spin 50s linear infinite,
+             bg 100s step-end infinite;
+  animation-play-state: paused;
+  animation-delay:inherit;
+}
+
+.elementToFadeInAndOut {
+  opacity: 1;
+  animation: fade 1.5s;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
