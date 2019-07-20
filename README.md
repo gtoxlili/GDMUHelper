@@ -13,11 +13,7 @@
 - [x] 成绩查询系统
 - [x] 生日榜单系统
 - [X] 用户登录系统
-<<<<<<< HEAD
 - [X] 文章精选系统
-=======
-- [ ] 文章精选系统
->>>>>>> 6c829bba1e6418e3d6651031fa8557c916ee9a3a
 
 ## 项目优势：
 
@@ -29,8 +25,4 @@
 
 ## Demo：
 
-<<<<<<< HEAD
 ![橘年实验室](https://github.com/Glovecc/GDMUHelper/blob/master/static/img/qr.jpg)
-=======
-![橘年实验室](https://github.com/Glovecc/GDMUHelper/blob/master/static/img/qr.jpg)
->>>>>>> 6c829bba1e6418e3d6651031fa8557c916ee9a3a
