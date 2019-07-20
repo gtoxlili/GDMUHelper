@@ -5,12 +5,14 @@ const app = getApp()
 //index.js
 Page({
   data: {
+    swipernr: [],
+    articles: [],
     current: 'tab1',
     currentbt: 'tab1',
     chaxun: ["0", "1"],
     multiArray: [],
     loadmore: ["正在加载", true],
-    loadmoreshow: false,
+    loadmoreshow: true,
     indexs: [],
     shenrilist: [],
     visible2: false,
@@ -19,6 +21,7 @@ Page({
     pagesx: 0,
     pagesxing: false,
     pagesxed: false,
+    adclose: true,
     actionshow: {
       "kemu": "",
       "kaosxz": "",
@@ -45,8 +48,47 @@ Page({
         pagesx: this.data.pagesx + 1,
         pagesxing: true
       });
-      this.shengri(this.data.currentbt)
+      if (this.data.current == "tab1") {
+        this.wenzhang()
+      } else {
+        this.shengri(this.data.currentbt)
+      }
     }
+
+  },
+  swipertouch(x){
+    console.log(x)
+    wx.navigateTo({
+      url: "/pages/article/article?links=" + x.currentTarget.id //实际路径要写全
+    })
+  },
+  wenzhang: function() {
+    var that = this
+    wx.request({
+      method: "POST",
+      url: 'https://wechat.juniancc.top/articles',
+      data: {
+        mishi: app.md5Ms(),
+        page: this.data.pagesx
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success(res) {
+        that.setData({
+          articles: that.data.articles.concat(res.data.result),
+          swipernr: that.data.pagesx ? that.data.swipernr : res.data.swipers,
+          loadmoreshow: false,
+          pagesxing: false,
+        })
+      }
+    })
+  },
+  adClose(x) {
+    console.log(x)
+    this.setData({
+      adclose: false
+    });
 
   },
   handleOpen2(x) {
@@ -98,7 +140,7 @@ Page({
       shenrilist: [],
       pagesx: 0,
       pagesxing: false,
-      pagesxed:false
+      pagesxed: false
     })
     console.log(detail.key)
     this.shengri(detail.key)
@@ -120,15 +162,18 @@ Page({
       multiArray: [
         ["", "", "", ""].map((x, y) => nowYear - y + "学年"), ['第一学期', '第二学期']
       ],
-      chaxun: ["0", nowMonth <= 6 ? 1 : 0]
+      chaxun: ["0", nowMonth <= 6 ? 1 : 0],
+      charuad: Math.ceil(Math.random() * 13 + 6)
     });
     this.setData(app.globalData)
     // Do some initialize when page load.
   },
   onReady: function() {
+    this.wenzhang()
     // Do something when page ready.
   },
   onShow: function() {
+
     // Do something when page show.
   },
   onHide: function() {
@@ -148,6 +193,12 @@ Page({
       return {
         title: "各位爷快里面请",
         imageUrl: 'https://wechat.juniancc.top/Sharecover'
+      };
+    } else if (x.from == "button") {
+      return {
+        title: this.data.articles[x.target.id]["title"],
+        path: "/pages/article/article?links=" + this.data.articles[x.target.id]["link"],
+        imageUrl: this.data.articles[x.target.id]["media"] ? this.data.articles[x.target.id]["media"] : 'https://wechat.juniancc.top/Sharecover'
       };
     } else {
       return {
@@ -246,8 +297,9 @@ Page({
         that.setData({
           shenrilist: that.data.shenrilist.concat(res.data),
           loadmoreshow: false,
-          pagesxing: res.data.length<10?true:false,
+          pagesxing: res.data.length < 10 ? true : false,
           pagesxed: res.data.length < 10 ? true : false,
+          adclose: true
         })
 
       }
@@ -267,6 +319,8 @@ Page({
             current: detail.key,
             loadmore: ["正在加载", true],
             loadmoreshow: true,
+            pagesx: 0,
+            shenrilist: []
           });
           if (detail.key == "tab2") {
             this.shengri("tab1")
@@ -280,9 +334,17 @@ Page({
           });
         }
       } else {
+
         this.setData({
-          current: detail.key
+          current: detail.key,
+          loadmore: ["正在加载", true],
+          loadmoreshow: true,
+          swipernr: [],
+          articles: [],
+          pagesx: 0,
+          adclose: true
         });
+        this.wenzhang()
       }
     }
 

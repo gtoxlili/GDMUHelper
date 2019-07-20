@@ -12,16 +12,51 @@
 </view>
 
 
-<view class='header' style='position:relative;height: calc(100vh - {{status + navHeight}}px)'>
+<scroll-view scroll-y style='position:relative;height: calc(100vh - {{status + navHeight}}px)' bindscrolltolower="shenrichud">
 
-  <view style="height:40px;padding-top:30px;overflow:hidden;">
+  <view style="height:40px;padding:30px 0px;overflow:hidden;">
     <i-row>
       <i-col span="17" offset="1" i-class="col-class">
-        <i-input value="{{ value5 }}" placeholder="请输入搜索内容" />
+        <i-input value="{{ value5 }}" placeholder="请输入搜索内容" bind:change="bindKeyInput" />
       </i-col>
       <i-col span="5" i-class="col-class">
         <i-button bind:click="handleClick" type="primary" size="small" long>搜索</i-button>
       </i-col>
     </i-row>
   </view>
-</view>
+
+  <i-load-more wx:if="{{loadmoreshow}}" tip="少女祈祷中" i-class="showboxs" />
+  <block wx:if="{{!loadmoreshow}}">
+    <view wx:for="{{articles}}" wx:key="{{index}}" class='elementToFadeInAndOut' style='margin:0px 22px'>
+      <block wx:if="{{item.media}}">
+        <view style='display: flex;justify-content:space-between;align-items:flex-start;padding-top: 24rpx;' bindtap="swipertouch" id="{{item.link}}">
+          <view style='width: 60%'>{{item.title}}</view>
+          <view>
+            <image class="bottomxs" style="width: 100px; height: 75px; background-color: #eeeeee;" mode="aspectFill" src="{{item.media}}" lazy-load></image>
+          </view>
+        </view>
+      </block>
+      <block wx:else>
+        <view style='padding-top: 24rpx;' bindtap="swipertouch" id="{{item.link}}">
+          <view style='padding-bottom: 18rpx;'>{{item.title}}</view>
+          <text style='font-size:12px;color:#858585' decode>{{item.desc}}...</text>
+        </view>
+      </block>
+      <view style='display: flex;justify-content:space-between;align-items:center;'>
+        <view style='color:#b97914;text-shadow: 0 0 5rpx #b97914;font-size:14px;'>{{item.media?"AD案例":"资讯信息"}}</view>
+        <view>
+          <button id="{{index}}" open-type="share" size="mini" style='background-color:transparent;padding-right:0px;'>
+            <i-icon type="more" size="32" color="#80848f" /> </button>
+        </view>
+      </view>
+      <view style='height:1rpx;background-color:#DDDEE1;margin:8px 0px'></view>
+      <block wx:if="{{index%17==charuad && adclose}}">
+        <view class="bottomxs" style='margin:16px 0px;border:1rpx solid #dddee1;'>
+          <ad unit-id="adunit-c06f2fdfce19af22" bindclose="adClose" binderror="adClose"></ad>
+        </view>
+        <view style='height:1rpx;background-color:#DDDEE1;margin:8px 0px'></view>
+      </block>
+    </view>
+    <i-load-more wx:if="{{onesuosou}}" tip="{{loaded?'没有更多了':'少女祈祷中'}}" loading="{{ !loaded }}" i-class="loadxs" />
+  </block>
+</scroll-view>

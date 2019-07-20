@@ -1,13 +1,14 @@
 /**app.wxss**/
 
 page {
-  background-color: #fbf5f9;
+  background-color: rgb(250, 249, 245);
   height: 100vh;
   font-family: 'Ziti';
 }
 
-
-
+button::after {
+  border: none;
+}
 
 .bottomxs {
   box-shadow: 0 6rpx 10rpx 2rpx #ccc !important; /*for Android*/

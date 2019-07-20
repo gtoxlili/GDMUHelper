@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/user/user",
-    "pages/sousuo/sousuo"
+    "pages/sousuo/sousuo",
+    "pages/article/article"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -16,7 +17,12 @@
   "usingComponents": {
     "i-tab-bar": "/static/iview/tab-bar/index",
     "i-tab-bar-item": "/static/iview/tab-bar-item/index",
+    "i-tabs": "/static/iview/tabs/index",
+    "i-tab": "/static/iview/tab/index",
     "i-avatar": "/static/iview/avatar/index",
+    "i-action-sheet": "/static/iview/action-sheet/index",
+    "i-alert": "/static/iview/alert/index",
+    "i-button": "/static/iview/button/index",
     "i-cell-group": "/static/iview/cell-group/index",
     "i-cell": "/static/iview/cell/index",
     "i-icon": "/static/iview/icon/index",
@@ -24,14 +30,9 @@
     "i-row": "/static/iview/row/index",
     "i-col": "/static/iview/col/index",
     "i-panel": "/static/iview/panel/index",
-    "i-button": "/static/iview/button/index",
-    "i-action-sheet": "/static/iview/action-sheet/index",
-    "i-alert": "/static/iview/alert/index",
     "i-input": "/static/iview/input/index",
     "i-spin": "/static/iview/spin/index",
     "i-steps": "/static/iview/steps/index",
-    "i-tabs": "/static/iview/tabs/index",
-    "i-tab": "/static/iview/tab/index",
     "i-load-more": "/static/iview/load-more/index"
   },
   "sitemapLocation": "sitemap.json"

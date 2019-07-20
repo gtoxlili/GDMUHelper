@@ -1,3 +1,5 @@
+@import "/static/wxParse/wxParse.wxss";
+
 .navbar{
   position: relative
 }
@@ -13,11 +15,8 @@
   left: 16px;
 }
 
-.showboxs {
-  position: absolute;
-  top: 10%;
-  left: 0px;
-  right: 0px;
+.spinfix{
+  background-color:rgba(255,255,255,.5)!important;
 }
 
 .elementToFadeInAndOut {
@@ -33,4 +32,13 @@
   100% {
     opacity: 1;
   }
+}
+
+.nameafter::after{
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    height: 1em;
+    margin: -1px 5px 0;
+    border-left: #e6e6e6 1px solid;
 }

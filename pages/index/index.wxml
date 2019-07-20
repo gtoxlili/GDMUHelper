@@ -5,59 +5,110 @@
       <view class='back-icon' bindtap='user'>
         <i-icon type="addressbook" size="26" color="#ffffff" style="margin: auto;" />
       </view>
-      <view class='home-icon' bindtap='sousuo'>
-        <i-icon type="search" size="26" color="#ffffff" style="margin: auto;" />
+      <view class='home-icon' bindtap='sousuo' wx:if="{{current=='tab1'}}">
+        <i-icon class="elementToFadeInAndOut" type="search" size="26" color="#ffffff" style="margin: auto;" />
       </view>
-      
+
       <view class='nav-title'>
-        <text style='color:#ffffff;font-size:18px;'>橘年实验室</text>
+        <text style='color:#ffffff;font-size:18px;'>广医小工具</text>
       </view>
     </view>
   </view>
   <i-tabs current="{{ current }}" color="#ffffff" bindchange="handleChange">
-    <i-tab key="tab1" title="文章精选"></i-tab>
+    <i-tab key="tab1" title="创意分享"></i-tab>
     <i-tab key="tab2" title="生日榜单"></i-tab>
     <i-tab key="tab3" title="成绩查询"></i-tab>
   </i-tabs>
 </view>
 <block wx:if="{{current=='tab1'}}">
-  <view style='height: calc(100vh - {{status + navHeight+42+72}}px);position: relative;'>
-    <i-load-more tip="Come soon" loading="{{ false }}" i-class="showboxs" />
-  </view>
+  <scroll-view scroll-y style='height: calc(100vh - {{status + navHeight+42}}px);' bindscrolltolower="shenrichud">
+    <i-load-more wx:if="{{loadmoreshow}}" tip="{{loadmore[0]}}" loading="{{ loadmore[1] }}" i-class="showboxs" />
+    <block wx:if="{{!loadmoreshow}}">
+      <swiper indicator-dots="true" autoplay="true" circular="true" style='height: 235px;'>
+        <swiper-item wx:for="{{swipernr}}" wx:key="{{index}}">
+          <view style='background:url("{{item.media}}");background-position:center;background-size:cover;background-repeat:no-repeat;padding-bottom: 50%;margin:16px;position: relative;' class="bottomxs,elementToFadeInAndOut" bindtap="swipertouch" id="{{item.link}}">
+            <view style='position: absolute;left:10px;bottom:10px;color:#ffffff;font-size:15px;text-shadow: black 0.1em 0.1em 0.2em,0 0 5rpx white, 0 0 10rpx white, 0 0 15rpx white, 0 0 40rpx white, 0 0 70rpx white;'>
+              {{item.title}}
+            </view>
+          </view>
+        </swiper-item>
+      </swiper>
+      <view wx:for="{{articles}}" wx:key="{{index}}" class='elementToFadeInAndOut' style='margin:0px 22px'>
+        <block wx:if="{{item.media}}">
+          <view style='display: flex;justify-content:space-between;align-items:flex-start;padding-top: 24rpx;' bindtap="swipertouch" id="{{item.link}}">
+            <view style='width: 60%'>{{item.title}}</view>
+            <view>
+              <image class="bottomxs" style="width: 100px; height: 75px; background-color: #eeeeee;" mode="aspectFill" src="{{item.media}}" lazy-load></image>
+            </view>
+          </view>
+        </block>
+        <block wx:else>
+          <view style='padding-top: 24rpx;' bindtap="swipertouch" id="{{item.link}}">
+            <view style='padding-bottom: 18rpx;'>{{item.title}}</view>
+            <text style='font-size:12px;color:#858585' decode>{{item.desc}}...</text>
+          </view>
+        </block>
+        <view style='display: flex;justify-content:space-between;align-items:center;'>
+          <view style='color:#b97914;text-shadow: 0 0 5rpx #b97914;font-size:14px;'>{{item.media?"AD案例":"资讯信息"}}</view>
+          <view>
+            <button id="{{index}}" open-type="share" size="mini" style='background-color:transparent;padding-right:0px;'>
+              <i-icon type="more" size="32" color="#80848f" /> </button>
+          </view>
+        </view>
+        <view style='height:1rpx;background-color:#DDDEE1;margin:8px 0px'></view>
+        <block wx:if="{{index%17==charuad && adclose}}">
+          <view class="bottomxs" style='margin:16px 0px;border:1rpx solid #dddee1;'>
+            <ad unit-id="adunit-c06f2fdfce19af22" bindclose="adClose" binderror="adClose"></ad>
+          </view>
+          <view style='height:1rpx;background-color:#DDDEE1;margin:8px 0px'></view>
+        </block>
+
+      </view>
+      <i-load-more tip="少女祈祷中" i-class="loadxs" />
+
+    </block>
+  </scroll-view>
+
 </block>
 <block wx:elif="{{current=='tab2'}}">
   <scroll-view scroll-y style='height: calc(100vh - {{status + navHeight+42+50}}px);' bindscrolltolower="shenrichud">
     <i-load-more wx:if="{{loadmoreshow}}" tip="{{loadmore[0]}}" loading="{{ loadmore[1] }}" i-class="showboxs" />
     <block wx:if="{{!loadmoreshow}}">
-      <i-card i-class="bottomxs,elementToFadeInAndOut" style="margin:16px;" wx:for="{{shenrilist}}" wx:key="{{index}}">
+      <view style="margin:24px 0px;" wx:for="{{shenrilist}}" wx:key="{{index}}">
+        <i-card i-class="bottomxs,elementToFadeInAndOut,fangcard">
 
-        <view slot="content" style='display: flex;flex-direction: row;justify-content:space-between;align-items: center;height:80px;'>
+          <view slot="content" style='display: flex;flex-direction: row;justify-content:space-between;align-items: center;height:80px;'>
 
 
-          <view style="display: flex;flex-direction:column;">
-            <view style='padding:4px;display: flex;flex-direction: row;align-items: flex-end;'>
-              <view style='color: #333126;font-size: 16px;'>{{item.name}}
+            <view style="display: flex;flex-direction:column;">
+              <view style='padding:4px;display: flex;flex-direction: row;align-items: flex-end;'>
+                <view style='color: #333126;font-size: 16px;'>{{item.name}}
 
+                </view>
+                <view style='font-size: 12px;margin:0px 4px;'>
+                  ({{item.banji}}班)
+                </view>
               </view>
-              <view style='font-size: 12px;margin:0px 4px;'>
-                ({{item.banji}}班)
-              </view>
+
+              <view style='padding:4px;color: #bbc4d2;font-size: 12px;'>{{item.shenr}}</view>
+
+
             </view>
 
-            <view style='padding:4px;color: #bbc4d2;font-size: 12px;'>{{item.shenr}}</view>
+            <view style='color: #28272c;display: flex;flex-direction: row;align-items: baseline;'>距离生日还有
+              <view style='margin:0px 6px;font-size: 24px;font-weight:600;color:{{index<3?"#9e3e42":""}}'>{{item.jujin}}</view>天</view>
+
+
 
 
           </view>
-
-          <view style='color: #28272c;display: flex;flex-direction: row;align-items: baseline;'>距离生日还有
-            <view style='margin:0px 6px;font-size: 24px;font-weight:600;color:{{index<3?"#9e3e42":""}}'>{{item.jujin}}</view>天</view>
-
-
-
-
+        </i-card>
+        <view class="bottomxs" style='margin:24px 16px;border:1rpx solid #dddee1;' wx:if="{{index==charuad && adclose}}">
+          <ad unit-id="adunit-f0d905a7d74f02cc" bindclose="adClose" binderror="adClose"></ad>
         </view>
-      </i-card>
-      <i-load-more tip="{{pagesxed?'已经到底了':'少女祈祷中'}}"  loading="{{ !pagesxed }}" i-class="loadxs" />
+      </view>
+
+      <i-load-more tip="{{pagesxed?'已经到底了':'少女祈祷中'}}" loading="{{ !pagesxed }}" i-class="loadxs" />
     </block>
   </scroll-view>
   <i-tab-bar current="{{ currentbt }}" color="#9e3e42" bindchange="bottomChange" i-class="bottomxs">

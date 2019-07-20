@@ -1,0 +1,37 @@
+<import src="/static/wxParse/wxParse.wxml" />
+<view style='background: url("http://g6o.club/tc/1.png");background-position:center;background-color:#262423;' class="bottomxs">
+  <view class='nav' style='height: {{status + navHeight}}px'>
+    <view class='status' style='height: {{status}}px;'></view>
+    <view class='navbar' style='height:{{navHeight}}px;'>
+      <view class='back-icon' bindtap='userxsd'>
+        <i-icon type="close" size="26" color="#ffffff" style="margin: auto;" />
+      </view>
+    </view>
+  </view>
+</view>
+<scroll-view scroll-y style='height: calc(100vh - {{status + navHeight}}px);'>
+  <i-spin fix size="large" i-class="spinfix" wx:if="{{loading}}"></i-spin>
+  <block wx:else>
+    <view class='elementToFadeInAndOut' style='margin:16px'>
+      <view style='font-size: 5.3333vw;font-weight: 800;line-height: 1.25;color: #1c1c1c;'>
+        {{articneir.title}}
+      </view>
+      <view style='padding-top:16px;display: flex;align-items:center;'>
+        <image class="bottomxs" style="width: 24px; height: 24px; background-color: #eeeeee;border-radius:50%" mode="aspectFill" src="{{articneir.ybimg}}" lazy-load></image>
+        <view style='padding-left:8px;font-size: 12px;' class='nameafter'>
+          {{articneir.ybname}}
+        </view>
+        <view style='color: #b3b3b3;font-size: 12px;' class='nameafter'>
+          {{articneir.time}}
+        </view>
+      </view>
+      <view style='height:1rpx;background-color:#DDDEE1;margin:16px 0px'></view>
+      <view class="wxParse" style='line-height:60rpx;'>
+        <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+      </view>
+      <view class="bottomxs" wx:if="{{adclose}}" style='margin:16px 0px;border:1rpx solid #dddee1;'>
+        <ad unit-id="adunit-c06f2fdfce19af22" bindclose="adClose" binderror="adClose"></ad>
+      </view>
+    </view>
+  </block>
+</scroll-view>

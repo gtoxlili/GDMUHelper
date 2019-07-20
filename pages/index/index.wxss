@@ -2,8 +2,12 @@
   position: relative;
 }
 
-.loadxs{
-  padding-bottom:8px;
+.fangcard{
+  border-radius:0px!important;
+}
+
+.loadxs {
+  padding: 8px;
 }
 
 .back-icon, .home-icon {
@@ -42,22 +46,26 @@
   background-image: linear-gradient(to right, transparent 50%, #655 0);
 }
 
-@keyframes spin{
-  to { transform: rotate(180deg)}
+@keyframes spin {
+  to {
+    transform: rotate(180deg);
+  }
 }
 
-@keyframes bg{
-  50% {background: #655;}
+@keyframes bg {
+  50% {
+    background: #655;
+  }
 }
 
-.showboxs{
+.showboxs {
   position: absolute;
-  top:5%;
-  left:0px;
-  right:0px;
+  top: 5%;
+  left: 0px;
+  right: 0px;
 }
 
-.pie::before{
+.pie::before {
   content: "";
   display: block;
   margin-left: 50%;
@@ -65,10 +73,9 @@
   border-radius: 0 100% 100% 0 / 50%;
   background-color: inherit;
   transform-origin: left;
-  animation: spin 50s linear infinite,
-             bg 100s step-end infinite;
+  animation: spin 50s linear infinite, bg 100s step-end infinite;
   animation-play-state: paused;
-  animation-delay:inherit;
+  animation-delay: inherit;
 }
 
 .elementToFadeInAndOut {
