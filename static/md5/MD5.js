@@ -208,7 +208,7 @@ Date.prototype.pattern = function(fmt) {
 
 function keygenerate() {
   var date = new Date().getTime()
-  var key = date + "," + hexMD5(date + "gtisyourdaddy")
+  var key = date + "," + hexMD5(date + "特征码")
   return key
 };
 
