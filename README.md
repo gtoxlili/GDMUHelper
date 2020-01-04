@@ -26,3 +26,7 @@
 ## Demo：
 
 ![橘年实验室](https://github.com/Glovecc/GDMUHelper/blob/master/static/img/qr.jpg)
+
+## 后续：
+
+由于学校方面的阻拦，该小程序下架处理，源码仅作学习交流使用。
